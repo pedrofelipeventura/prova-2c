@@ -1,0 +1,42 @@
+//digite um vetor x de tamanho n definido pelo usuário, normalize seus vetores utilizando a fórmula 
+//yi = xi-xmin/ xmax-xmin, utilize deslocamento de ponteiros para manipular as matrizes/vetores
+
+#include <stdio.h>
+#include <time.h>
+#define MX 10
+
+int main(){
+    srand(time(NULL));
+    int n;
+    int xmin, xmax;
+
+    printf("Digite um valor para o tamanho do vetor:\n");
+    scanf("%d", &n);
+    int x[n];
+    int *px = x;
+
+    xmin = MX;
+    xmax = 0;
+
+    for(int i=0; i<n; i++){
+        *(px + i) = rand()%MX;
+    }
+
+    for(int i =0; i<n ; i++){
+        if(*(px + i)>xmax){
+            xmax = *(px + i);
+        } else if(*(px + i)<xmin){
+            xmin = *(px + i);
+        } 
+    }
+    printf("xmax: %d\n", xmax);
+    printf("xmin: %d\n", xmin);
+    
+    float y[n];
+    float *py = y;
+    for(int i =0; i<n; i++){
+        *(py +i)= (float) (*(px + i) - xmin )/(xmax-xmin);
+        printf("Valor de y[%d] = %.2f\n", i, *(py + i));
+    }
+    return 0;
+}
