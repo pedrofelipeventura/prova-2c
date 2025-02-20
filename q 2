@@ -1,0 +1,49 @@
+//implemente uma função que dado um vetor x de inteiros , organize um vetor fornecido 
+//como argumento os endereços de um elemnto par e um elemento impar de X . se não houver deve retornar nulo
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define MX 10
+
+void calcularendereco(int *vetor, int numerodeelementos){
+    for(int i =0; i < numerodeelementos; i++){
+        if(*(vetor + i) == 0){
+            printf("Nulo.\n ");
+        }
+        else if(*(vetor + i) %2 == 0){
+            printf("Vetor %d é par, endereço : %p\n", i, *(vetor + i));
+        }else if (*(vetor + i) %2 != 0){
+            printf("Vetor %d é impar, endereço : %p\n", i, *(vetor + i));
+        }
+    }
+}
+
+int main(){
+    srand(time(NULL));
+
+    int numerodeelementos;
+    printf("Digite o num de elemntos do vetor:\n");
+    scanf("%d", &numerodeelementos);
+
+    int *vetor = (int *)malloc(sizeof(int) * numerodeelementos);
+    if(vetor == NULL){
+        printf("Problema ao alocar memória:");
+        exit(1);
+    }
+
+    for(int i =0; i<numerodeelementos; i++){
+        *(vetor + i) = rand()%MX;
+    }
+
+    for(int i =0; i<numerodeelementos; i++){
+    printf("Vetor %d gerado: %4d\n",i,  *(vetor + i));
+    }
+
+    calcularendereco(vetor,  numerodeelementos);
+
+    free(vetor);
+
+    return 0;
+}
